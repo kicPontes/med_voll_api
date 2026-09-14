@@ -1,91 +1,96 @@
-# Med Voll API
+# 🏥 Med Voll API — Plataforma de Gerenciamento de Clínicas
 
-Este é um projeto de API para gerenciamento de uma clínica médica, desenvolvido em Java utilizando o framework Spring Boot. A API fornece funcionalidades para gerenciar médicos, pacientes, agendamentos e consultas.
+![Java](https://img.shields.io/badge/Java-17-orange?logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen?logo=springboot&logoColor=white)
+![Spring Security](https://img.shields.io/badge/Spring%20Security-JWT-6DB33F?logo=springsecurity&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-Testcontainers-4479A1?logo=mysql&logoColor=white)
+![Swagger](https://img.shields.io/badge/Docs-Swagger-85EA2D?logo=swagger&logoColor=black)
+![JUnit](https://img.shields.io/badge/Tests-JUnit%205%20%7C%20Mockito-25A162?logo=junit5&logoColor=white)
 
-## Estrutura do Projeto
+API RESTful para o gerenciamento de uma clínica médica fictícia, com cadastro de médicos e pacientes e controle de agendamento de consultas. O desenvolvimento acompanhou a Formação Spring Boot da Alura (com Rodrigo Caneppele), com adaptações pessoais e testes adicionais.
 
-- **/.classpath**: Arquivo de configuração do classpath do projeto.
-- **/.gitignore**: Arquivo que especifica quais arquivos devem ser ignorados pelo Git.
-- **/.project**: Arquivo de configuração do projeto.
-- **/mvnw, /mvnw.cmd**: Scripts para executar o Maven Wrapper.
-- **/pom.xml**: Arquivo de configuração do Maven, contendo as dependências do projeto.
-- **/src/main**: Contém o código-fonte principal do projeto.
-  - **/java/med/voll/api**: Pacote base da aplicação.
-    - **/controller**: Contém os controladores REST.
-    - **/domain**: Contém as classes de domínio e os repositórios.
-    - **/infra**: Contém classes de infraestrutura, como configurações e serviços de segurança.
-    - **/service**: Contém as classes de serviço.
-- **/src/test**: Contém os testes do projeto.
-- **/target**: Diretório gerado pelo Maven para armazenar os artefatos construídos.
+## 📚 Conceitos Aplicados
 
-## Funcionalidades
+✔ **Autenticação Stateless** — Login e proteção de rotas com Spring Security 6 + JWT, controlando acesso por perfil de usuário (roles)
+✔ **Validação de Dados** — Bean Validation nos DTOs de entrada, barrando dados inconsistentes antes da camada de serviço
+✔ **Testes de Integração Realistas** — Testcontainers sobe um banco MySQL real e descartável durante os testes, garantindo que o comportamento em teste seja o mesmo da produção
+✔ **Documentação Viva da API** — Especificação OpenAPI/Swagger gerada a partir do código
+✔ **Arquitetura em Camadas** — Separação clara entre `controller`, `service`, `domain` e `infra`
 
-- **Gerenciamento de Médicos**: Cadastro, atualização, exclusão e listagem de médicos.
-- **Gerenciamento de Pacientes**: Cadastro, atualização, exclusão e listagem de pacientes.
-- **Agendamentos**: Agendamento de consultas médicas.
-- **Consultas**: Gerenciamento de consultas realizadas.
+## ⚙️ Estrutura do Projeto
 
-## Tecnologias Usadas
+| Camada | Caminho | Responsabilidade |
+|---|---|---|
+| Controller | `/controller` | Expõe os endpoints REST |
+| Domain | `/domain` | Entidades de domínio e repositórios (Médico, Paciente, Consulta, Endereço) |
+| Service | `/service` | Regras de negócio da aplicação |
+| Infra | `/infra` | Segurança, tratamento de exceções e configuração do Swagger |
+| Tests | `/src/test` | Testes unitários e de integração |
 
-- **Java 17**: Linguagem de programação principal do projeto.
-- **Spring Boot**: Framework para facilitar a configuração e o desenvolvimento da aplicação.
-- **Spring Data JPA**: Abstração para interações com o banco de dados.
-- **H2 Database**: Banco de dados em memória para desenvolvimento e testes.
-- **Spring Security**: Framework para segurança da aplicação.
-- **JWT (JSON Web Token)**: Para autenticação e autorização.
-- **Maven**: Ferramenta de automação de compilação e gerenciamento de dependências.
-- **Swagger**: Para documentação e teste da API.
-- **JUnit**: Framework para testes unitários.
-- **Mockito**: Framework para criação de mocks em testes unitários.
+## 🧩 Funcionalidades
 
-## Pré-requisitos
+- **Médicos** — cadastro, atualização, exclusão e listagem
+- **Pacientes** — cadastro, atualização, exclusão e listagem
+- **Consultas** — agendamento e gerenciamento de consultas médicas
+
+## 🛠 Tecnologias Utilizadas
+
+- **Backend:** Java 17, Spring Boot
+- **Persistência:** Spring Data JPA · H2 (ambiente de desenvolvimento) · MySQL via Testcontainers (testes de integração)
+- **Segurança:** Spring Security 6, JWT
+- **Documentação:** Swagger / OpenAPI
+- **Testes:** JUnit 5, Mockito, Testcontainers
+- **Build:** Maven
+
+## 🔍 O Que Aprendi (Key Takeaways)
+
+- **Autenticação stateless:** como emitir e validar tokens JWT sem depender de sessão no servidor, e proteger rotas por perfil de usuário
+- **Testes de integração confiáveis:** usar Testcontainers para validar a aplicação contra um banco real evita o clássico "funciona no H2, quebra em produção"
+- **Validação em camadas:** Bean Validation como primeira linha de defesa da API contra dados malformados
+- **Documentação como parte do desenvolvimento:** manter o Swagger atualizado como contrato vivo da API, facilitando o consumo por outros times
+
+## ✅ Pré-requisitos
 
 - Java 17
 - Maven 3.8.1+
 
-## Instalação
+## 🚀 Como Executar
 
-1. Clone o repositório:
+Clone o repositório:
 
-    ```sh
-    git clone https://github.com/seu-usuario/med_voll_api.git
-    ```
+```bash
+git clone https://github.com/kicPontes/med_voll_api.git
+cd med_voll_api
+```
 
-2. Navegue até o diretório do projeto:
+Compile o projeto e instale as dependências:
 
-    ```sh
-    cd med_voll_api
-    ```
+```bash
+./mvnw clean install
+```
 
-3. Compile o projeto e instale as dependências:
+Execute a aplicação:
 
-    ```sh
-    ./mvnw clean install
-    ```
-
-## Configuração
-
-### Banco de Dados
-
-Este projeto utiliza o banco de dados H2 para desenvolvimento. A configuração do banco de dados pode ser encontrada no arquivo `src/main/resources/application.properties`.
-
-## Executando a Aplicação
-
-Para executar a aplicação, use o seguinte comando:
-
-```sh
+```bash
 ./mvnw spring-boot:run
 ```
+
 A aplicação estará disponível em `http://localhost:8080`.
-## Documentação da API
 
-A documentação da API pode ser acessada através do Swagger, disponível em `http://localhost:8080/swagger-ui.html`.
-Testes
+## ⚙️ Configuração
 
-Para executar os testes, utilize o seguinte comando:
-```sh
+O projeto usa **H2** em memória para o ambiente de desenvolvimento local — configuração em `src/main/resources/application.properties`. Nos testes de integração, o **Testcontainers** sobe automaticamente um container MySQL descartável, sem necessidade de configuração manual.
+
+## 📄 Documentação da API
+
+Disponível via Swagger em: `http://localhost:8080/swagger-ui.html`
+
+## 🧪 Testes
+
+```bash
 ./mvnw test
 ```
-Agradecimentos
 
-Este projeto foi desenvolvido com o apoio da Alura na Formação Spring Boot com Rodrigo Caneppele.
+## 🙏 Agradecimentos
+
+Projeto desenvolvido com apoio da Alura, na Formação Spring Boot com Rodrigo Caneppele.
